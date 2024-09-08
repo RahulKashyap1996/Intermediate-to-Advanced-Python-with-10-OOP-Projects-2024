@@ -8,7 +8,7 @@ myTurtle = turtle.Turtle()
 # Define the Point class
 class Point:
     def __init__(self, x, y):
-        """Initialize a point with x and y coordinates."""
+        """Initialize a point with x and y coordinates ok."""
         self.x = x
         self.y = y
 
