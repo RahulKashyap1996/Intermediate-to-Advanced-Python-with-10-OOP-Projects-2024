@@ -53,7 +53,7 @@ class Flatmate: #the flatmate class has parameter name and days stayed
     def input_method_name(self):
         try:
             self.name=input("Enter the name of the first flatmate:\n")
-        except  ValueError as e_msg:
+        except  ValueError as e_msg:    #ok
             print(e_msg)
 
     def input_method_days_stayed(self):
