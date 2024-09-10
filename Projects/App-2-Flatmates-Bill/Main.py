@@ -23,7 +23,7 @@
 
 
 
-
+#Code with the class Structure
 
 class Bill:
     """
