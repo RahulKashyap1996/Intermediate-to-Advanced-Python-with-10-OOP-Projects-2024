@@ -89,8 +89,8 @@ try:
 except ValueError as err_msg:
     print(f"The error message is {err_msg}")
 
-try:
-    fpdf=FPDF()
-    fpdf.
-except ValueError as er:
-    print(f"The error message is {er}")
+# try:
+#     fpdf=FPDF()
+#     fpdf.
+# except ValueError as er:
+#     print(f"The error message is {er}")
