@@ -24,6 +24,7 @@
 
 
 #Code with the class Structure
+from pdf_Trial import create_pdf
 
 class Bill:
     """
@@ -79,6 +80,9 @@ def get_valid_bill_input():
         except ValueError as er:
             print(f"The error message is {er}")
 
+
+
+
 try:
     flatmate1=get_valid_flatmate_input()
     flatmate2=get_valid_flatmate_input()
@@ -86,11 +90,9 @@ try:
     flatmate1.print_amount_paid(bill)
     flatmate2.print_amount_paid(bill)
 
+
+    create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1),bill.payment(flatmate2))
+
 except ValueError as err_msg:
     print(f"The error message is {err_msg}")
 
-# try:
-#     fpdf=FPDF()
-#     fpdf.
-# except ValueError as er:
-#     print(f"The error message is {er}")
