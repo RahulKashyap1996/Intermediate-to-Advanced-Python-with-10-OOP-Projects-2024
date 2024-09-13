@@ -31,16 +31,27 @@ class Bill:
     Bill amount is an object that has two parameters Bill Amount and Bill Period and
     a method payment that calculates the amount that everyone has to pay
     """
-    def __init__(self,amount,period):   #initialization method with two parameters amount and period
-        self.amount=amount
-        self.period=period
+    def __init__(self,bill_amount,bill_period):   #initialization method with two parameters amount and period
+        self.bill_amount=bill_amount
+        self.bill_period=bill_period
+
 
     # def total_period(self,flatmate1,flatmate2):
     #     return flatmate1.days_stayed+flatmate2.days_stayed
 
-    def payment(self,flatmate_one,flatmate_two): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
-        flatmate_one_payment= "{: .2f}".format(flatmate_one.days_stayed*(self.amount/self.period())*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
-        flatmate_two_payment="{: .2f}".format(flatmate_two.days_stayed*(self.amount/self.period())*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+    def payment(self,flatmate_one,flatmate_two,for_flatmate): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
+        flatmate_one_payment= "{: .2f}".format(flatmate_one.days_stayed*(self.bill_amount/self.bill_period)*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+        flatmate_two_payment="{: .2f}".format(flatmate_two.days_stayed*(self.bill_amount/self.bill_period)*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+
+        if for_flatmate==flatmate_one:
+            return flatmate_one_payment
+        else:
+            return flatmate_two_payment
+
+    def print_payment_done(self,flatmate_one,flatmate_two):
+        print(f"The bill amount paid by {flatmate_one.name} is {self.payment(flatmate_one,flatmate_two,flatmate_one)}")
+        print(f"The bill amount paid by {flatmate_two.name} is {self.payment(flatmate_one,flatmate_two,flatmate_two)}")
+
 class Flatmate:
     """
     The object flatmate has two parameters name and days stayed which
@@ -49,9 +60,6 @@ class Flatmate:
         self.name=name       #initialization of parameters name and day stayed
         self.days_stayed=days_stayed
 
-
-    def print_amount_paid(self,bill1):   # this method gives the total amount paid for each flatmate separately
-        print(f"Flat mate {self.name}  paid {bill1.payment()}") # for this you can call self directly for the class
 
 def get_valid_flatmate_input():
     while True:
@@ -64,7 +72,7 @@ def get_valid_flatmate_input():
             return Flatmate(name, days_stayed)
 
         except ValueError as er:
-            print (f"THe error is {er}")
+            print (f"The error is {er}")
 
 
 def get_valid_bill_input():
@@ -83,19 +91,13 @@ def get_valid_bill_input():
         except ValueError as er:
             print(f"The error message is {er}")
 
-
-
-
 try:
     flatmate1=get_valid_flatmate_input()
     flatmate2=get_valid_flatmate_input()
     bill=get_valid_bill_input()
-    flatmate1.print_amount_paid(bill)
-    flatmate2.print_amount_paid(bill)
+    bill.print_payment_done(flatmate1,flatmate2)
 
-
-
-    create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1),bill.payment(flatmate2))
+    create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1,flatmate2,flatmate1),bill.payment(flatmate2,flatmate1,flatmate2))
 
 except ValueError as err_msg:
     print(f"The error message is {err_msg}")
