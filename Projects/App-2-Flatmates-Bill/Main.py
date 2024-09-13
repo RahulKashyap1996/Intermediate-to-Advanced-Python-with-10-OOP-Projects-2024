@@ -35,12 +35,15 @@ class Bill:
         self.amount=amount
         self.period=period
 
-    def payment(self,flatmate): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
-        return flatmate.days_stayed*(self.amount/self.period)
+    # def total_period(self,flatmate1,flatmate2):
+    #     return flatmate1.days_stayed+flatmate2.days_stayed
 
+    def payment(self,flatmate_one,flatmate_two): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
+        flatmate_one_payment= "{: .2f}".format(flatmate_one.days_stayed*(self.amount/self.period())*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+        flatmate_two_payment="{: .2f}".format(flatmate_two.days_stayed*(self.amount/self.period())*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
 class Flatmate:
     """
-    The object flatmate is has two parameters name and days stayed which
+    The object flatmate has two parameters name and days stayed which
     """
     def __init__(self,name,days_stayed):
         self.name=name       #initialization of parameters name and day stayed
@@ -48,12 +51,12 @@ class Flatmate:
 
 
     def print_amount_paid(self,bill1):   # this method gives the total amount paid for each flatmate separately
-        print(f"Flat mate {self.name}  paid {bill1.payment(self)}") # for this you can call self directly for the class
+        print(f"Flat mate {self.name}  paid {bill1.payment()}") # for this you can call self directly for the class
 
 def get_valid_flatmate_input():
     while True:
         try:
-            name=input("Enter the name of the  flatmate:\n")
+            name=input("Enter the name of the flatmate:\n")
             days_stayed=int(input(f"Enter the days stayed for the {name}:\n"))
 
             if days_stayed < 0:
@@ -89,6 +92,7 @@ try:
     bill=get_valid_bill_input()
     flatmate1.print_amount_paid(bill)
     flatmate2.print_amount_paid(bill)
+
 
 
     create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1),bill.payment(flatmate2))

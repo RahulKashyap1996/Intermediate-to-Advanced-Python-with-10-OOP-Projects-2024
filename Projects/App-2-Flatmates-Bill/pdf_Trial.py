@@ -11,7 +11,6 @@ pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 
-
 # create a Canvas object with a filename
 def create_pdf(flatmate1_name,flatmate2_name,flatmate1_bill,flatmate2_bill):
 
@@ -33,16 +32,19 @@ def create_pdf(flatmate1_name,flatmate2_name,flatmate1_bill,flatmate2_bill):
 
     c.setFont('Vera', 20, )
     c.drawString(100,700,text="Full Name")
-    c.drawString(150, y=700, text="BIll Amount to be Paid")
+    c.drawString(250, y=700, text="BIll Amount to be Paid")
 
-    c.drawString(100, 600, text=flatmate1_name)
-    c.drawString(150, 600, text=flatmate1_bill)
+    c.drawString(100, 670, text=flatmate1_name)
+    c.drawString(250, 670, text=str(flatmate1_bill))
 
-    c.drawString(100, 600, text=flatmate2_name)
-    c.drawString(150, 600, text=flatmate2_bill)
+    c.drawString(100, 650, text=flatmate2_name)
+    c.drawString(250, 650, text=str(flatmate2_bill))
 
     c.drawImage(image="files/house.png",x=50,y=760,width=50,height=50)
     # finish page
     c.showPage()
     # construct and save file to .pdf
     c.save()
+
+
+#create_pdf("Rain","Pain",430,333)
