@@ -26,6 +26,19 @@
 #Code with the class Structure
 from pdf_Trial import create_pdf
 
+count=0
+# c = canvas.Canvas("generated pdf's/" + "Flatmate_Bill" + "_" + "v"+str(counter)+".pdf",
+#                       pagesize=(595.27, 841.89))
+
+def increment_count():
+    global count
+    count+=1
+    return count
+
+def set_count_to_zero():
+    global count
+    count=0
+
 class Bill:
     """
     Bill amount is an object that has two parameters Bill Amount and Bill Period and
@@ -67,6 +80,9 @@ def get_valid_flatmate_input():
             name=input("Enter the name of the flatmate:\n")
             days_stayed=int(input(f"Enter the days stayed for the {name}:\n"))
 
+            if name=="":
+                raise ValueError(f"Please Enter some value for the name currently there are no Values entered")
+
             if days_stayed < 0:
                 raise ValueError(f"Please Enter Positive Value for Days Stayed for {name}")
             return Flatmate(name, days_stayed)
@@ -90,14 +106,25 @@ def get_valid_bill_input():
 
         except ValueError as er:
             print(f"The error message is {er}")
+def get_more_input():
+    while True:
+        try:
+            chk_y_or_n=input("Do you want to feed another Data into the pdf file type y for yes and n for no")
+            if chk_y_or_n.lower()!="y" or chk_y_or_n.lower()!="n":
+                raise ValueError("Please enter the values y or n as mentioned")
+            return chk_y_or_n
+        except ValueError as err_msg:
+            print(err_msg)
+
 
 try:
-    flatmate1=get_valid_flatmate_input()
-    flatmate2=get_valid_flatmate_input()
-    bill=get_valid_bill_input()
-    bill.print_payment_done(flatmate1,flatmate2)
+   while get_more_input()=="y":
+        flatmate1=get_valid_flatmate_input()
+        flatmate2=get_valid_flatmate_input()
+        bill=get_valid_bill_input()
+        bill.print_payment_done(flatmate1,flatmate2)
 
-    create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1,flatmate2,flatmate1),bill.payment(flatmate2,flatmate1,flatmate2))
+        create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1,flatmate2,flatmate1),bill.payment(flatmate2,flatmate1,flatmate2))
 
 except ValueError as err_msg:
     print(f"The error message is {err_msg}")
