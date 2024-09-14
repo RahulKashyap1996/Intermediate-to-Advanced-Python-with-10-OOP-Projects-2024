@@ -25,6 +25,8 @@
 
 #Code with the class Structure
 from pdf_Trial import create_pdf
+from classbill import Bill
+from class_flatmate import Flatmate
 
 count=0
 # c = canvas.Canvas("generated pdf's/" + "Flatmate_Bill" + "_" + "v"+str(counter)+".pdf",
@@ -38,41 +40,6 @@ def increment_count():
 def set_count_to_zero():
     global count
     count=0
-
-class Bill:
-    """
-    Bill amount is an object that has two parameters Bill Amount and Bill Period and
-    a method payment that calculates the amount that everyone has to pay
-    """
-    def __init__(self,bill_amount,bill_period):   #initialization method with two parameters amount and period
-        self.bill_amount=bill_amount
-        self.bill_period=bill_period
-
-
-    # def total_period(self,flatmate1,flatmate2):
-    #     return flatmate1.days_stayed+flatmate2.days_stayed
-
-    def payment(self,flatmate_one,flatmate_two,for_flatmate): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
-        flatmate_one_payment= "{: .2f}".format(flatmate_one.days_stayed*(self.bill_amount/self.bill_period)*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
-        flatmate_two_payment="{: .2f}".format(flatmate_two.days_stayed*(self.bill_amount/self.bill_period)*(1/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
-
-        if for_flatmate==flatmate_one:
-            return flatmate_one_payment
-        else:
-            return flatmate_two_payment
-
-    def print_payment_done(self,flatmate_one,flatmate_two):
-        print(f"The bill amount paid by {flatmate_one.name} is {self.payment(flatmate_one,flatmate_two,flatmate_one)}")
-        print(f"The bill amount paid by {flatmate_two.name} is {self.payment(flatmate_one,flatmate_two,flatmate_two)}")
-
-class Flatmate:
-    """
-    The object flatmate has two parameters name and days stayed which
-    """
-    def __init__(self,name,days_stayed):
-        self.name=name       #initialization of parameters name and day stayed
-        self.days_stayed=days_stayed
-
 
 def get_valid_flatmate_input():
     while True:
@@ -107,25 +74,27 @@ def get_valid_bill_input():
         except ValueError as er:
             print(f"The error message is {er}")
 def get_more_input():
+
     while True:
         try:
-            chk_y_or_n=input("Do you want to feed another Data into the pdf file type y for yes and n for no")
-            if chk_y_or_n.lower()!="y" or chk_y_or_n.lower()!="n":
+            chk_y_or_n=input("Do you want to feed Data into the pdf file type y for yes and n for no\n")
+            if(chk_y_or_n.lower()!="y" and chk_y_or_n.lower()!="n"):
                 raise ValueError("Please enter the values y or n as mentioned")
+
             return chk_y_or_n
         except ValueError as err_msg:
             print(err_msg)
 
 
 try:
-   while get_more_input()=="y":
+    while get_more_input()=="y":
         flatmate1=get_valid_flatmate_input()
         flatmate2=get_valid_flatmate_input()
-        bill=get_valid_bill_input()
-        bill.print_payment_done(flatmate1,flatmate2)
+        bill1=get_valid_bill_input()
+        bill1.print_payment_done(flatmate1,flatmate2)
 
-        create_pdf(flatmate1.name,flatmate2.name,bill.payment(flatmate1,flatmate2,flatmate1),bill.payment(flatmate2,flatmate1,flatmate2))
-
+        create_pdf(flatmate1.name,flatmate2.name,bill1.payment(flatmate1,flatmate2,flatmate1),bill1.payment(flatmate2,flatmate1,flatmate2))
+    print("The process is complete.")
 except ValueError as err_msg:
     print(f"The error message is {err_msg}")
 
