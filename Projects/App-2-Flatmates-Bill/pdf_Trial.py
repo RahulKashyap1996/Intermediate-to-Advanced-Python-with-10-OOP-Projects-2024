@@ -18,11 +18,7 @@ pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 
-
-
-
 def create_pdf(flatmate1_name,flatmate2_name,flatmate1_bill,flatmate2_bill):
-
 
     # draw a string at x=100, y=800 points
     # point ~ standard desktop publishing (72 DPI)

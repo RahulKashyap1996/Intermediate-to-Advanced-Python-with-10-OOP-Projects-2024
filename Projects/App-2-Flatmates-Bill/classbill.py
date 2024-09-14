@@ -12,8 +12,8 @@ class Bill:
     #     return flatmate1.days_stayed+flatmate2.days_stayed
 
     def payment(self,flatmate_one,flatmate_two,for_flatmate): #Method Payment it is used to calculate the payment per flatmate according to their days of stay
-        flatmate_one_payment= "{: .2f}".format(flatmate_one.days_stayed*(self.bill_amount/self.bill_period)*(flatmate_one.days_stayed/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
-        flatmate_two_payment="{: .2f}".format(flatmate_two.days_stayed*(self.bill_amount/self.bill_period)*(flatmate_two.days_stayed/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+        flatmate_one_payment= "{: .2f}".format((self.bill_amount/self.bill_period)*(flatmate_one.days_stayed/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
+        flatmate_two_payment="{: .2f}".format((self.bill_amount/self.bill_period)*(flatmate_two.days_stayed/(flatmate_one.days_stayed+flatmate_two.days_stayed)))
 
         if for_flatmate==flatmate_one:
             return flatmate_one_payment
