@@ -3,7 +3,7 @@ from math import pi,sin
 import time
 import os
 
-from PIL.ImageDraw import ImageDraw,Draw,Image
+from PIL.ImageDraw import Draw,Image
 
 
 class Circle:
@@ -50,16 +50,16 @@ class Circle:
 
         draw=Draw(p)
 
-        draw.text((self.radius * 5, self.radius * 3.5), "Circumference :" + str(self.circumference()), fill="Black",
+        draw.text((self.radius * 5, self.radius * 3.5), "Circumference : " + str(self.circumference()), fill="Black",
                   font_size=self.radius * 0.2)
 
-        draw.text((self.radius * 5, self.radius * 3.7), "Area :" + str(self.area()), fill=self.color,
+        draw.text((self.radius * 5, self.radius * 3.7), "Area : " + str(self.area()), fill=self.color,
                   font_size=self.radius * 0.2)
 
-        draw.text((self.radius * 1.5, self.radius * 3.5), "Radius :" + str(self.radius), fill="Green",
+        draw.text((self.radius * 1.5, self.radius * 3.5), "Radius : " + str(self.radius), fill="Green",
                   font_size=self.radius * 0.2)
 
-        draw.text((self.radius * 1.5, self.radius * 3.7), "Diameter :" + str(self.diameter()), fill="Red",
+        draw.text((self.radius * 1.5, self.radius * 3.7), "Diameter : " + str(self.diameter()), fill="Red",
                   font_size=self.radius * 0.2)
 
         draw.circle(xy=[self.radius * 6, self.radius * 2], radius=self.radius, fill=self.color, outline="black",
@@ -84,15 +84,15 @@ class Circle:
 
             draw.text((self.radius * 3, self.radius * 0.5),"Fig: Circle",fill="Red",font_size=self.radius*0.3)
 
-            draw.text((self.radius * 1.5, self.radius * 4.1), "Chord Length :"+str(self.chord_length()), fill="brown", font_size=self.radius * 0.2)
+            draw.text((self.radius * 1.5, self.radius * 4.1), "Chord Length : "+str(self.chord_length()), fill="brown", font_size=self.radius * 0.2)
 
-            draw.text((self.radius * 1.5, self.radius * 4.3), "Arc Length :"+str(self.arc_length()), fill="Orange", font_size=self.radius * 0.2)
+            draw.text((self.radius * 1.5, self.radius * 4.3), "Arc Length : "+str(self.arc_length()), fill="Orange", font_size=self.radius * 0.2)
 
-            draw.text((self.radius * 1.5, self.radius * 3.9), "Area of Sector :"+str(self.area_of_sector()), fill="brown", font_size=self.radius * 0.2)
+            draw.text((self.radius * 1.5, self.radius * 3.9), "Area of Sector : "+str(self.area_of_sector()), fill="brown", font_size=self.radius * 0.2)
 
 
 
-            draw.text((self.radius * 1.5, self.radius * 4.5), "Angle :" + str(self.angle), fill="brown",
+            draw.text((self.radius * 1.5, self.radius * 4.5), "Angle : " + str(self.angle), fill="brown",
                       font_size=self.radius * 0.2)
 
 
