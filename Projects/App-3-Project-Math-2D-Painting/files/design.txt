@@ -20,3 +20,7 @@ Objects: Square:
             height
             color
             make(imagepath)
+
+
+
+            create a pdf with the pic included and all the calculations for the Triangle

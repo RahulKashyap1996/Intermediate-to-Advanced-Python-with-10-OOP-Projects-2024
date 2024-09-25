@@ -1,0 +1,6 @@
+1. def __inti__(self,a,b=0,c=0,ang1=0,ang2=0,ang3=0,type=""):
+
+    Gave the spelling wrong wrote inti instead of init its initialise so init
+    because of which i was unable to initialise my process and wasted half an hour.
+
+2.
