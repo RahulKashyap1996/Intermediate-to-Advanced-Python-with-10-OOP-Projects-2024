@@ -63,6 +63,60 @@ class Triangle:
                 self.print_func_one()
                 input_requirements_to_draw_triangle()
 
+    def find_all_sides_and_angles(self):
+        if (self.type == "e".lower() or self.type == "e".upper()):
+            self.angA=self.angB=self.angC=60
+            if (self.a != 0 and self.b == 0 and self.c == 0):
+                self.b=self.c=self.a
+
+            if (self.a == 0 and self.b != 0 and self.c == 0):
+                self.a=self.c=self.self.b
+                (self.a == 0 and self.b == 0 and self.c != 0)):
+                return "You have entered the values for an equilateral Triangle"
+            else:
+                self.print_func_one()
+                input_requirements_to_draw_triangle()
+
+        if (self.type == "i".lower() or self.type == "i".upper()):
+            if ((self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB == 0 and self.angC == 0) or
+                (self.a == 0 and self.b != 0 and self.c == 0 and self.angA != 0 and self.angB == 0 and self.angC == 0)):
+                return "You have entered the Correct values for an Isosceles Triangle"
+            else:
+                self.print_func_one()
+                input_requirements_to_draw_triangle()
+
+        if (self.type == "r".lower() or self.type == "r".upper()):
+            if ((self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB == 0 and self.angC == 0) or
+                (self.a == 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0) or
+                (self.a == 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0)):
+                return "You have entered the Correct values for an Right Angle Triangle"
+            else:
+                self.print_func_one()
+                input_requirements_to_draw_triangle()
+
+        if (self.type == ""):
+            # for SSS
+            if ((self.a != 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0) or
+                # for SAS
+                (self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB != 0 and self.angC == 0) or
+                (self.a != 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC != 0) or
+                (self.a == 0 and self.b != 0 and self.c != 0 and self.angA != 0 and self.angB == 0 and self.angC == 0) or
+                # for ASA
+                (self.a == 0 and self.b != 0 and self.c == 0 and self.angA != 0 and self.angB != 0 and self.angC == 0) or
+                (self.a != 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angB != 0 and self.angC != 0) or
+                (self.a == 0 and self.b == 0 and self.c != 0 and self.angA != 0 and self.angB == 0 and self.angC != 0) or
+                # for AAS
+                (self.a != 0 and self.b == 0 and self.c == 0 and self.angA != 0 and self.angB != 0 and self.angC == 0) or
+                (self.a == 0 and self.b == 0 and self.c != 0 and self.angA != 0 and self.angB != 0 and self.angC == 0) or
+                (self.a == 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB != 0 and self.angC != 0) or
+                (self.a == 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angB != 0 and self.angC != 0) or
+                (self.a != 0 and self.b == 0 and self.c == 0 and self.angA != 0 and self.angB == 0 and self.angC != 0) or
+                ( self.a == 0 and self.b != 0 and self.c == 0 and self.angA != 0 and self.angB == 0 and self.angC != 0)):
+                return "You have entered the Correct values for the Triangle"
+            else:
+                self.print_func_one()
+                input_requirements_to_draw_triangle()
+
 
 
 class Equilateral_Triangle(Triangle):
