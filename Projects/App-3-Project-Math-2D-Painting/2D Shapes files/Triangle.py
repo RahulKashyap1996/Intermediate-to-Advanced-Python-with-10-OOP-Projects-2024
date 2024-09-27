@@ -1,9 +1,5 @@
 from math import sin,cos,acos,asin,atan
 
-
-
-
-
 class Triangle:
     def __init__(self,a=0,b=0,c=0,angA=0,angB=0,angC=0,type=""):
 
@@ -14,6 +10,43 @@ class Triangle:
         self.angB=angB
         self.angC=angC
         self.type=type
+
+    def perimeter(self):
+        self.find_all_sides_and_angles()
+        return self.a+self.b+self.c
+
+    def area(self):
+        s=self.perimeter()/2
+        return (s*(s-self.a)*(s-self.b)*(s-self.c))**0.5
+
+    def altitudes(self):
+        self.find_all_sides_and_angles()
+        alt_at_a=2*self.area()/self.a
+        alt_at_b=2*self.area()/self.b
+        alt_at_c=2*self.area()/self.c
+        return alt_at_b,alt_at_a,alt_at_c
+
+    def circum_radius(self):
+        self.find_all_sides_and_angles()
+        return self.a*self.b*self.c/(4 * self.area())
+
+    def in_radius(self):
+        self.find_all_sides_and_angles()
+        return self.area()/(self.perimeter()/2)
+
+    def median(self):
+        self.find_all_sides_and_angles()
+        med_a=(1/2)*((2*self.b)**2+(2*self.c)**2-self.a**2)**0.5
+        med_b=(1/2)*((2*self.a)**2+(2*self.c)**2-self.b**2)**0.5
+        med_c=(1/2)*((2*self.a)**2+(2*self.b)**2-self.c**2)**0.5
+        return med_b,med_c,med_a
+
+    def angle_bisector(self):
+        self.find_all_sides_and_angles()
+        bis_a=(self.b*self.c*(1-(self.a**2)/(self.b+self.c)**2))**0.5
+        bis_b=(self.a*self.c*(1-(self.b**2)/(self.a+self.c)**2))**0.5
+        bis_c=(self.b*self.a*(1-(self.c**2)/(self.b+self.a)**2))**0.5
+        return bis_c,bis_b,bis_a
 
     def cosine_rule_find_angA(self):
         self.angA=acos((self.b**2+self.c**2-self.a**2)/2*self.b*self.c)
@@ -188,7 +221,7 @@ class Triangle:
             if self.a == 0 and self.b != 0 and self.c != 0 and self.angA != 0 and self.angB == 0 and self.angC == 0:
                 self.angB = (self.b * sin(self.angA) / self.a)
                 self.angC = 180 - (self.angA + self.angB)
-                self.a = (self.b * sin(self.ang) / sin(self.angB))
+                self.a = (self.b * sin(self.angA) / sin(self.angB))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
                 # for ASA
@@ -249,18 +282,6 @@ class Triangle:
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
 
-
-
-
-class Equilateral_Triangle(Triangle):
-    pass
-
-class Isosceles_Triangle(Triangle):
-    pass
-
-class Scalene_Triangle(Triangle):
-    pass
-
 def print_func_one():
     print("Please Go through the instructions given and enter the correct values:")
 
@@ -269,9 +290,9 @@ def input_requirements_to_draw_triangle():
             We need the following Minimum requirements Drawing the triangles any one of them
             
                                          A
-                                        / \.
-                                      b/   \c               Fig One
-                                      /     \.
+                                        / \\.
+                                      b/   \\.c               Fig One
+                                      /     \\.
                                      *-------*  
                                     B    a     C
                 Where:
@@ -315,9 +336,9 @@ def input_requirements_to_draw_triangle():
                                                    
                                     Equilateral Triangle (All sides equal)
                                           A
-                                         / \.
-                                      a /   \ a     Fig Two 
-                                       /     \.
+                                         / \\.
+                                      a /   \\. a     Fig Two 
+                                       /     \\.
                                       B-------C
                                           a
                                      
@@ -336,10 +357,10 @@ def input_requirements_to_draw_triangle():
                                                    
                                      Isosceles Triangle (Two equal sides)
                                           A
-                                         /|\.
-                                        / | \.
-                                      b/  |  \.b Fig Three
-                                      /   |   \.
+                                         /|\\.
+                                        / | \\.
+                                      b/  |  \\.b Fig Three
+                                      /   |   \\.
                                      B----*----C
                                          a
                                      
@@ -380,13 +401,15 @@ def input_requirements_to_draw_triangle():
             """)
 
 
+input_requirements_to_draw_triangle()
+triangle=Triangle()
+triangle.a=int(input())
+triangle.b=int(input())
+triangle.c=int(input())
 
-triangle=Triangle(a=4)
-triangle.a=5
-triangle.ok()
-print(triangle.a)
-
-
-
+triangle.angA=int(input())
+triangle.angB=int(input())
+triangle.angC=int(input())
+triangle.check_the_input()
 
 

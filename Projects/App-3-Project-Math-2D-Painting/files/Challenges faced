@@ -3,4 +3,7 @@
     Gave the spelling wrong wrote inti instead of init its initialise so init
     because of which i was unable to initialise my process and wasted half an hour.
 
-2.
+2.D:\Coding\Python\Intermediate-to-Advanced-Python-with-10-OOP-Projects-2024\Projects\App-3-Project-Math-2D-Painting\2D Shapes files\Triangle.py:289: SyntaxWarning: invalid escape sequence '\.'
+  print("""
+
+  Resolution:
