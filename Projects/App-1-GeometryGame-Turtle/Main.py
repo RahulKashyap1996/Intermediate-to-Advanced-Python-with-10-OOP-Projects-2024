@@ -111,7 +111,7 @@ except ValueError:
     print("Invalid input! Please enter a valid number.")
 
 # Draw the rectangle and move to the guessed point
-rectangle.draw()
+GuiRectangle.draw(rectangle)
 user_guess.go_to_point()
 
 # Check if the point lies on the rectangle's boundary
