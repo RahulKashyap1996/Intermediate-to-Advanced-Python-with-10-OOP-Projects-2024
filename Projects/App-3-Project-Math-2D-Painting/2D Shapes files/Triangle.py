@@ -1,4 +1,4 @@
-from math import sin,cos,acos,asin,atan
+from math import sin,cos,acos,asin,atan,degrees
 
 class Triangle:
     def __init__(self,a=0,b=0,c=0,angA=0,angB=0,angC=0,type=""):
@@ -49,15 +49,15 @@ class Triangle:
         return bis_a,bis_b,bis_c
 
     def cosine_rule_find_angA(self):
-        self.angA=acos((self.b**2+self.c**2-self.a**2)/2*self.b*self.c)
+        self.angA=degrees(acos((self.b**2+self.c**2-self.a**2)/2*self.b*self.c))
         return self.angA
 
     def cosine_rule_find_angB(self):
-        self.angB=acos((self.a**2+self.c**2-self.b**2)/2*self.a*self.c)
+        self.angB=degrees(acos((self.a**2+self.c**2-self.b**2)/2*self.a*self.c))
         return self.angB
 
     def cosine_rule_find_angC(self):
-        self.angC=acos((self.a**2+self.b**2-self.a**2)/2*self.b*self.c)
+        self.angC=degrees(acos((self.a**2+self.b**2-self.c**2)/2*self.b*self.c))
         return self.angC
 
     def print_all_sides_and_angles(self):
@@ -207,7 +207,7 @@ class Triangle:
                 self.c=self.b
                 self.angB=(180-self.angC)/2
                 self.angC=self.angB
-                self.a=(self.b*sin(self.angA))/sin(self.angB)
+                self.a=(self.b*degrees(sin(self.angA))/sin(self.angB))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
 
@@ -215,13 +215,13 @@ class Triangle:
             self.angB=90
 
             if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB == 0 and self.angC == 0:
-                self.angA = atan(self.a / self.b)
+                self.angA = degrees(atan(self.a / self.b))
                 self.angC=90-self.angA
                 self.c=(self.b**2-self.a**2)**0.5
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
             if self.a == 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0:
-                self.angA=atan(self.c/self.a)
+                self.angA=degrees(atan(self.c/self.a))
                 self.angC=90-self.angA
                 self.a = (self.b ** 2 - self.c ** 2) ** 0.5
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
@@ -237,20 +237,20 @@ class Triangle:
 
                 # for SAS
             if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB != 0 and self.angC == 0:
-                self.angA=(self.a*sin(self.angB)/self.b)
+                self.angA=degrees(self.a*sin(self.angB)/self.b)
                 self.angC=180-(self.angA+self.angB)
-                self.c=(self.b * sin(self.angC) / sin(self.angB))
+                self.c=(self.b * degrees(sin(self.angC) / sin(self.angB)))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
             if self.a != 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC != 0:
-                self.angA = (self.a * sin(self.angC) / self.c)
+                self.angA = (self.a * degrees(sin(self.angC) / self.c))
                 self.angB = 180 - (self.angA + self.angC)
-                self.b = (self.c * sin(self.angB) / sin(self.angC))
+                self.b = (self.c * degrees(sin(self.angB) / sin(self.angC)))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
 
             if self.a == 0 and self.b != 0 and self.c != 0 and self.angA != 0 and self.angB == 0 and self.angC == 0:
-                self.angB = (self.b * sin(self.angA) / self.a)
+                self.angB = (self.b * degrees(sin(self.angA) / self.a))
                 self.angC = 180 - (self.angA + self.angB)
                 self.a = (self.b * sin(self.angA) / sin(self.angB))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
