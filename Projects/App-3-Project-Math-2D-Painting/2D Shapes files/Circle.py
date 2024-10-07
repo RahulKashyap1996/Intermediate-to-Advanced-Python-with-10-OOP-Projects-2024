@@ -12,6 +12,8 @@ class Circle:
         self.angle=angle
         self.color=color
 
+
+
     def diameter(self):
         return "{:.2f}".format(self.radius*2)
 
@@ -44,6 +46,7 @@ class Circle:
             print(f"The Area Of Sector is {self.area_of_sector()}")
 
     def draw_circle_and_all_properties(self):
+
         p = Image.new(mode="RGB", size=[self.radius*8, self.radius*5], color="white")
         os.chdir("../Output Files/")
         filename = "Rad"+"-"+str(self.radius)+"-"+str(datetime.date.today())+str("{:.4f}".format(time.time()))+ ".jpg"
@@ -95,12 +98,39 @@ class Circle:
             draw.text((self.radius * 1.5, self.radius * 4.5), "Angle : " + str(self.angle), fill="brown",
                       font_size=self.radius * 0.2)
 
-
         p.save(filename)
 
+def take_input_circle():
+        while True:
+            try:
 
-circle=Circle(radius=1000,angle=1)
-circle1=Circle(radius=500,angle=40)
-circle.circle_print_all_calculations()
-circle1.circle_print_all_calculations()
-circle.draw_circle_and_all_properties()
+                print("Please enter the value for Radius:\n")
+                rad=int(input())
+
+                print("Do you want to enter the Value for Angle 'y' for Yes and 'n' for No :\n")
+                var_chk=input()
+
+                if var_chk.lower()=="y" or var_chk=='y':
+                    print("Please enter the value for Radius:\n")
+                    angle = int(input())
+                else:
+                    angle=0
+
+                circle=Circle(radius=rad,angle=angle)
+
+
+                print("Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    circle.circle_print_all_calculations()
+
+                print("\n Do you want to get an image for all the calculations 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    circle.draw_circle_and_all_properties()
+                return False
+            except ValueError as e:
+                print("Please Enter the Correct Values for the Parameters in int\n")
+
+
+take_input_circle()

@@ -7,3 +7,7 @@
   print("""
 
   Resolution:
+
+3.Need to fix the code for radius smaller than 50 as then the code is not working as it should for class Circle
+
+4.

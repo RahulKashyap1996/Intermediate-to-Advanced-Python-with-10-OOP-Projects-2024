@@ -24,7 +24,7 @@ class Triangle:
         alt_at_a=2*self.area()/self.a
         alt_at_b=2*self.area()/self.b
         alt_at_c=2*self.area()/self.c
-        return alt_at_b,alt_at_a,alt_at_c
+        return alt_at_a,alt_at_b,alt_at_c
 
     def circum_radius(self):
         self.find_all_sides_and_angles()
@@ -39,14 +39,14 @@ class Triangle:
         med_a=(1/2)*((2*self.b)**2+(2*self.c)**2-self.a**2)**0.5
         med_b=(1/2)*((2*self.a)**2+(2*self.c)**2-self.b**2)**0.5
         med_c=(1/2)*((2*self.a)**2+(2*self.b)**2-self.c**2)**0.5
-        return med_b,med_c,med_a
+        return med_a,med_b,med_c
 
     def angle_bisector(self):
         self.find_all_sides_and_angles()
         bis_a=(self.b*self.c*(1-(self.a**2)/(self.b+self.c)**2))**0.5
         bis_b=(self.a*self.c*(1-(self.b**2)/(self.a+self.c)**2))**0.5
         bis_c=(self.b*self.a*(1-(self.c**2)/(self.b+self.a)**2))**0.5
-        return bis_c,bis_b,bis_a
+        return bis_a,bis_b,bis_c
 
     def cosine_rule_find_angA(self):
         self.angA=acos((self.b**2+self.c**2-self.a**2)/2*self.b*self.c)
@@ -61,6 +61,7 @@ class Triangle:
         return self.angC
 
     def print_all_sides_and_angles(self):
+        self.find_all_sides_and_angles()
         print(f"""
                 The side a of the triangle is {self.a}
                 The side b of the triangle is {self.b}  
@@ -68,7 +69,38 @@ class Triangle:
                 The Angle A of the triangle is {self.angA}
                 The Angle B of the triangle is {self.angB}
                 The Angle C of the triangle is {self.angC}
-        """)
+        """
+              )
+
+    def print_all_calculations(self):
+
+        print(f"The type of the triangle based on sides is {self.find_type_of_triangle_on_sides()}")
+
+        print(f"The type of the triangle based on sides is {self.find_type_of_triangle_on_angle()}")
+
+        print(f"The perimeter of the triangle is {self.perimeter()}")
+
+        print(f"The Area of the triangle is {self.area()}")
+
+        print(f"The Circum Radius of the triangle is {self.circum_radius()}")
+
+        print(f"The In Radius  of the triangle is {self.in_radius()}")
+
+
+        alt_at_a, alt_at_b, alt_at_c=self.altitudes()
+        print(f"The altitude at a will be {alt_at_a}")
+        print(f"The altitude at a will be {alt_at_b}")
+        print(f"The altitude at a will be {alt_at_c}")
+
+        med_a, med_b, med_c=self.median()
+        print(f"The median at a will be {med_a}")
+        print(f"The median at b will be {med_b}")
+        print(f"The median at c will be {med_c}")
+
+        bis_a, bis_b, bis_c=self.angle_bisector()
+        print(f"The angle bisector at a will be {bis_a}")
+        print(f"The angle bisector at b will be {bis_b}")
+        print(f"The angle bisector at c will be {bis_c}")
 
     def find_type_of_triangle_on_sides(self):
         self.find_all_sides_and_angles()
@@ -79,8 +111,6 @@ class Triangle:
            self.b==self.c and self.angB==self.angC or\
            self.c==self.a and self.angA==self.angC:
             return "Isosceles Triangle"
-
-
 
         if self.a!=self.b and self.b!=self.c:
             return "Isosceles Triangle"
@@ -105,6 +135,7 @@ class Triangle:
             if ((self.a!=0 and self.b==0 and self.c==0) or
                 (self.a==0 and self.b!=0 and self.c==0) or
                 (self.a==0 and self.b==0 and self.c!=0)):
+
                 return "You have entered the values for an equilateral Triangle"
             else:
                 print_func_one()
@@ -398,18 +429,248 @@ def input_requirements_to_draw_triangle():
             2.Enter E for Equilateral
             3.Enter R for Right angle 
             
-            """)
+            
+            
+            \n\n""")
+
+def take_input_rectangle():
+        while True:
+            try:
+                input_requirements_to_draw_triangle()
+
+                triangle=Triangle()
+
+                print("""Please enter the type of triangle :\n
+                
+                1.Enter I for Isosceles
+                2.Enter E for Equilateral
+                3.Enter R for Right angle
+                4.SSS(side-side-side) Enter SSS
+                5.SAS(Side-Angle_Side) Enter SAS
+                6.ASA(Angle-Side-Angle) Enter ASA
+                7.AAS(Angle-Angle-Side) Enter AAS
+                \n
+                """)
+
+                var_chk = input()
+                triangle.type=var_chk
+
+                if var_chk.lower() == "e" or var_chk == 'e':
+                    print("Please enter the value for Side:\n")
+                    triangle.a = int(input())
+
+                elif var_chk.lower() == "r" or var_chk == 'r':
+                    print("""Please enter combination you want to input Values for :\n
+                        1. (a, c) 
+                        2. (b, a)
+                        3. (b, c) 
+
+                        """)
+
+                    comb = int(input())
+                    if comb == 1:
+                        print("please Enter the Value for Side a :")
+                        triangle.a = int(input())
+
+                        print("please Enter the Value for Side c :")
+                        triangle.c = int(input())
+
+                    elif comb == 2:
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for side a :")
+                        triangle.a = int(input())
+
+                    elif comb == 3:
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for side c :")
+                        triangle.c = int(input())
+
+                elif var_chk.lower() == "sss" or var_chk == 'sss':
+                    print("Please enter the value for Side a:\n")
+                    triangle.a = int(input())
+
+                    print("Please enter the value for Side b:\n")
+                    triangle.b = int(input())
+
+                    print("Please enter the value for Side c:\n")
+                    triangle.c = int(input())
+
+                elif var_chk.lower() == "sas" or var_chk == 'sas':
+                    print("""Please enter combination you want to input Values for :\n
+                        1.(a, b, angB) 
+                        2.(b, c, angA)
+                        3.(c, a, angC) 
+
+                        """)
+
+                    comb = int(input())
+                    if comb == 1:
+                        print("please Enter the Value for Side a :")
+                        triangle.a = int(input())
+
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang B :")
+                        triangle.angB = int(input())
+
+                    elif comb == 2:
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for side c :")
+                        triangle.c = int(input())
+
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                    elif comb == 3:
+                        print("please Enter the Value for Side c :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for side a :")
+                        triangle.c = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                elif var_chk.lower() == "asa" or var_chk == 'asa':
+                    print("""Please enter combination you want to input Values for :\n
+                        1.(angA, b, angB) 
+                        2.(angB, a, angC)
+                        3.(angC, c, angA)
+
+                        """)
+
+                    comb = int(input())
+                    if comb == 1:
+                        print("please Enter the Value for angle B :")
+                        triangle.angB = int(input())
+
+                        print("please Enter the Value for Side a :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                    elif comb == 2:
+                        print("please Enter the Value for ang B :")
+                        triangle.angB = int(input())
+
+                        print("please Enter the Value for side a :")
+                        triangle.a = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                    elif comb == 3:
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                        print("please Enter the Value for side c :")
+                        triangle.c = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                elif var_chk.lower() == "aas" or var_chk == 'aas':
+                    print("""Please enter combination you want to input Values for :\n
+                        1.(angA, angB, a) 
+                        2.(angA, angC, b)
+                        3.(angA,angB,  c)
+                        4.(angB, angC, c)
+                        5.(angC, angA, a)
+                        6.(angC, angB, b)
+
+                        """)
+
+                    comb = int(input())
+                    if comb == 1:
+                        print("please Enter the Value for angle B :")
+                        triangle.angB = int(input())
+
+                        print("please Enter the Value for Side a :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                    elif comb == 2:
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                        print("please Enter the Value for side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                    elif comb == 3:
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                        print("please Enter the Value for side c :")
+                        triangle.c = int(input())
+
+                        print("please Enter the Value for ang B :")
+                        triangle.angB = int(input())
+                    elif comb == 4:
+                        print("please Enter the Value for angle B :")
+                        triangle.angB = int(input())
+
+                        print("please Enter the Value for Side c :")
+                        triangle.c = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                    elif comb == 5:
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
+
+                        print("please Enter the Value for side a :")
+                        triangle.a = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                    elif comb == 6:
+                        print("please Enter the Value for ang B :")
+                        triangle.angB = int(input())
+
+                        print("please Enter the Value for side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang C :")
+                        triangle.angC = int(input())
+
+                triangle.check_the_input()
+
+                print("\n Do you want to find all sides and angles print 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    triangle.print_all_sides_and_angles()
+
+                print("\n Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    triangle.print_all_calculations()
 
 
-input_requirements_to_draw_triangle()
-triangle=Triangle()
-triangle.a=int(input())
-triangle.b=int(input())
-triangle.c=int(input())
 
-triangle.angA=int(input())
-triangle.angB=int(input())
-triangle.angC=int(input())
-triangle.check_the_input()
 
+
+
+
+
+                return False
+            except ValueError as e:
+                print("Please Enter the Correct Values for the Parameters int for comb and string for type :\n")
+
+
+take_input_rectangle()
 
