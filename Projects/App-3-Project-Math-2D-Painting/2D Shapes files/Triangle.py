@@ -13,52 +13,55 @@ class Triangle:
 
     def perimeter(self):
         self.find_all_sides_and_angles()
-        return self.a+self.b+self.c
+        return float("{:.2f}".format(self.a+self.b+self.c))
 
     def area(self):
         s=self.perimeter()/2
-        return (s*(s-self.a)*(s-self.b)*(s-self.c))**0.5
+        return float("{:.2f}".format((s*(s-self.a)*(s-self.b)*(s-self.c))**0.5))
 
     def altitudes(self):
         self.find_all_sides_and_angles()
         alt_at_a=2*self.area()/self.a
         alt_at_b=2*self.area()/self.b
         alt_at_c=2*self.area()/self.c
-        return alt_at_a,alt_at_b,alt_at_c
+        return float("{:.2f}".format(alt_at_a)),float("{:.2f}".format(alt_at_b)),float("{:.2f}".format(alt_at_c))
 
     def circum_radius(self):
         self.find_all_sides_and_angles()
-        return self.a*self.b*self.c/(4 * self.area())
+        return float("{:.2f}".format(self.a*self.b*self.c/(4 * self.area())))
 
     def in_radius(self):
         self.find_all_sides_and_angles()
-        return self.area()/(self.perimeter()/2)
+        return float("{:.2f}".format(self.area()/(self.perimeter()/2)))
 
     def median(self):
         self.find_all_sides_and_angles()
         med_a=(1/2)*((2*self.b)**2+(2*self.c)**2-self.a**2)**0.5
         med_b=(1/2)*((2*self.a)**2+(2*self.c)**2-self.b**2)**0.5
         med_c=(1/2)*((2*self.a)**2+(2*self.b)**2-self.c**2)**0.5
-        return med_a,med_b,med_c
+        return float("{:.2f}".format(med_a)),float("{:.2f}".format(med_b)),float("{:.2f}".format(med_c))
 
     def angle_bisector(self):
         self.find_all_sides_and_angles()
         bis_a=(self.b*self.c*(1-(self.a**2)/(self.b+self.c)**2))**0.5
         bis_b=(self.a*self.c*(1-(self.b**2)/(self.a+self.c)**2))**0.5
         bis_c=(self.b*self.a*(1-(self.c**2)/(self.b+self.a)**2))**0.5
-        return bis_a,bis_b,bis_c
+        return float("{:.2f}".format(bis_a)),float("{:.2f}".format(bis_b)),float("{:.2f}".format(bis_c))
 
     def cosine_rule_find_angA(self):
-        self.angA=degrees(acos((self.b**2+self.c**2-self.a**2)/2*self.b*self.c))
-        return self.angA
+        self.find_all_sides_and_angles()
+        self.angA=degrees(acos((self.b**2+self.c**2-self.a**2)/(2*self.b*self.c)))
+        return float("{:.2f}".format(self.angA))
 
     def cosine_rule_find_angB(self):
-        self.angB=degrees(acos((self.a**2+self.c**2-self.b**2)/2*self.a*self.c))
-        return self.angB
+        self.find_all_sides_and_angles()
+        self.angB=degrees(acos((self.a**2+self.c**2-self.b**2)/(2*self.a*self.c)))
+        return float("{:.2f}".format(self.angB))
 
     def cosine_rule_find_angC(self):
-        self.angC=degrees(acos((self.a**2+self.b**2-self.c**2)/2*self.b*self.c))
-        return self.angC
+        self.find_all_sides_and_angles()
+        self.angC=degrees(acos((self.a**2+self.b**2-self.c**2)/(2*self.b*self.c)))
+        return float("{:.2f}".format(self.angC))
 
     def print_all_sides_and_angles(self):
         self.find_all_sides_and_angles()
@@ -66,9 +69,9 @@ class Triangle:
                 The side a of the triangle is {self.a}
                 The side b of the triangle is {self.b}  
                 The side c of the triangle is {self.c}
-                The Angle A of the triangle is {self.angA}
-                The Angle B of the triangle is {self.angB}
-                The Angle C of the triangle is {self.angC}
+                The Angle A of the triangle is {float("{:.2f}".format(self.angA))}
+                The Angle B of the triangle is {float("{:.2f}".format(self.angB))}
+                The Angle C of the triangle is {float("{:.2f}".format(self.angC))}
         """
               )
 
@@ -239,13 +242,13 @@ class Triangle:
             if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB != 0 and self.angC == 0:
                 self.angA=degrees(self.a*sin(self.angB)/self.b)
                 self.angC=180-(self.angA+self.angB)
-                self.c=(self.b * degrees(sin(self.angC) / sin(self.angB)))
+                self.c=(self.b * (sin(self.angC) / sin(self.angB)))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
             if self.a != 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC != 0:
                 self.angA = (self.a * degrees(sin(self.angC) / self.c))
                 self.angB = 180 - (self.angA + self.angC)
-                self.b = (self.c * degrees(sin(self.angB) / sin(self.angC)))
+                self.b = (self.c * (sin(self.angB) / sin(self.angC)))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
 
@@ -433,7 +436,7 @@ def input_requirements_to_draw_triangle():
             
             \n\n""")
 
-def take_input_rectangle():
+def take_input_triangle():
         while True:
             try:
                 input_requirements_to_draw_triangle()
@@ -458,6 +461,28 @@ def take_input_rectangle():
                 if var_chk.lower() == "e" or var_chk == 'e':
                     print("Please enter the value for Side:\n")
                     triangle.a = int(input())
+
+                elif var_chk.lower() == "i" or var_chk == 'i':
+                    print("""Please enter combination you want to input Values for :\n
+                        1. (b, a) 
+                        2. (b, angA) 
+
+                        """)
+
+                    comb = int(input())
+                    if comb == 1:
+                        print("please Enter the Value for Side a :")
+                        triangle.a = int(input())
+
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                    elif comb == 2:
+                        print("please Enter the Value for Side b :")
+                        triangle.b = int(input())
+
+                        print("please Enter the Value for ang A :")
+                        triangle.angA = int(input())
 
                 elif var_chk.lower() == "r" or var_chk == 'r':
                     print("""Please enter combination you want to input Values for :\n
@@ -648,29 +673,24 @@ def take_input_rectangle():
                         print("please Enter the Value for ang C :")
                         triangle.angC = int(input())
 
-                triangle.check_the_input()
+                    triangle.check_the_input()
 
-                print("\n Do you want to find all sides and angles print 'y' for Yes and 'n' for No :\n")
-                var_chk = input()
-                if var_chk.lower() == "y" or var_chk == 'y':
-                    triangle.print_all_sides_and_angles()
+                    print("\n Do you want to find all sides and angles print 'y' for Yes and 'n' for No :\n")
+                    var_chk = input()
+                    if var_chk.lower() == "y" or var_chk == 'y':
+                        triangle.print_all_sides_and_angles()
 
-                print("\n Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
-                var_chk = input()
-                if var_chk.lower() == "y" or var_chk == 'y':
-                    triangle.print_all_calculations()
-
-
-
+                    print("\n Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
+                    var_chk = input()
+                    if var_chk.lower() == "y" or var_chk == 'y':
+                        triangle.print_all_calculations()
+                        return False
 
 
-
-
-
-                return False
             except ValueError as e:
+                print(e)
                 print("Please Enter the Correct Values for the Parameters int for comb and string for type :\n")
 
 
-take_input_rectangle()
+take_input_triangle()
 
