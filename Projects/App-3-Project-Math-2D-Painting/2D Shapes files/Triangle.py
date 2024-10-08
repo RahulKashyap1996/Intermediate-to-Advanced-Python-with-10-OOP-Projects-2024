@@ -1,4 +1,9 @@
 from math import sin,cos,acos,asin,atan,degrees
+import datetime
+import time
+import os
+from PIL.ImageDraw import Draw,Image
+
 
 class Triangle:
     def __init__(self,a=0,b=0,c=0,angA=0,angB=0,angC=0,type=""):
@@ -36,9 +41,9 @@ class Triangle:
 
     def median(self):
         self.find_all_sides_and_angles()
-        med_a=(1/2)*((2*self.b)**2+(2*self.c)**2-self.a**2)**0.5
-        med_b=(1/2)*((2*self.a)**2+(2*self.c)**2-self.b**2)**0.5
-        med_c=(1/2)*((2*self.a)**2+(2*self.b)**2-self.c**2)**0.5
+        med_a=(1/2)*((2*self.b**2+2*self.c**2-self.a**2)**0.5)
+        med_b=(1/2)*((2*self.a**2+2*self.c**2-self.b**2)**0.5)
+        med_c=(1/2)*((2*self.a**2+2*self.b**2-self.c**2)**0.5)
         return float("{:.2f}".format(med_a)),float("{:.2f}".format(med_b)),float("{:.2f}".format(med_c))
 
     def angle_bisector(self):
@@ -49,31 +54,43 @@ class Triangle:
         return float("{:.2f}".format(bis_a)),float("{:.2f}".format(bis_b)),float("{:.2f}".format(bis_c))
 
     def cosine_rule_find_angA(self):
-        self.find_all_sides_and_angles()
+        #self.find_all_sides_and_angles()
         self.angA=degrees(acos((self.b**2+self.c**2-self.a**2)/(2*self.b*self.c)))
         return float("{:.2f}".format(self.angA))
 
     def cosine_rule_find_angB(self):
-        self.find_all_sides_and_angles()
+        #self.find_all_sides_and_angles()
         self.angB=degrees(acos((self.a**2+self.c**2-self.b**2)/(2*self.a*self.c)))
         return float("{:.2f}".format(self.angB))
 
     def cosine_rule_find_angC(self):
-        self.find_all_sides_and_angles()
-        self.angC=degrees(acos((self.a**2+self.b**2-self.c**2)/(2*self.b*self.c)))
+        #self.find_all_sides_and_angles()
+        self.angC=degrees(acos((self.a**2+self.b**2-self.c**2)/(2*self.b*self.a)))
         return float("{:.2f}".format(self.angC))
 
     def print_all_sides_and_angles(self):
         self.find_all_sides_and_angles()
-        print(f"""
-                The side a of the triangle is {self.a}
-                The side b of the triangle is {self.b}  
-                The side c of the triangle is {self.c}
-                The Angle A of the triangle is {float("{:.2f}".format(self.angA))}
-                The Angle B of the triangle is {float("{:.2f}".format(self.angB))}
-                The Angle C of the triangle is {float("{:.2f}".format(self.angC))}
-        """
-              )
+        if self.chk_for_inequality():
+            print(f"""
+                    The side a of the triangle is {self.a}
+                    The side b of the triangle is {self.b}  
+                    The side c of the triangle is {self.c}
+                    The Angle A of the triangle is {float("{:.2f}".format(self.angA))}
+                    The Angle B of the triangle is {float("{:.2f}".format(self.angB))}
+                    The Angle C of the triangle is {float("{:.2f}".format(self.angC))}
+            """
+                  )
+        else:
+            print("""Please enter the Values for the sides correctly
+                Triangle Inequality Theorem:
+                
+                The theorem states that for any triangle with sides:
+                
+                1.a+b>c
+                2.a+c>b
+                3.b+c>a
+
+                """)
 
     def print_all_calculations(self):
 
@@ -92,8 +109,8 @@ class Triangle:
 
         alt_at_a, alt_at_b, alt_at_c=self.altitudes()
         print(f"The altitude at a will be {alt_at_a}")
-        print(f"The altitude at a will be {alt_at_b}")
-        print(f"The altitude at a will be {alt_at_c}")
+        print(f"The altitude at b will be {alt_at_b}")
+        print(f"The altitude at c will be {alt_at_c}")
 
         med_a, med_b, med_c=self.median()
         print(f"The median at a will be {med_a}")
@@ -180,9 +197,45 @@ class Triangle:
                 (self.a != 0 and self.b == 0 and self.c == 0 and self.angA != 0 and self.angB == 0 and self.angC != 0) or
                 (self.a == 0 and self.b != 0 and self.c == 0 and self.angA != 0 and self.angB == 0 and self.angC != 0)):
                 return "You have entered the Correct values for the Triangle"
+
             else:
                 print_func_one()
                 input_requirements_to_draw_triangle()
+
+    def chk_for_inequality(self):
+        if self.a+self.b>self.c:
+            if self.a + self.b > self.c:
+                if self.a + self.b > self.c:
+                    return True
+        return False
+
+    def draw_the_triangle(self):
+
+        canvas_var=max(self.a,self.b,self.c)
+        if canvas_var<10:
+            canvas_multiplier=20
+        elif canvas_var<50:
+            canvas_multiplier = 10
+        elif canvas_var<100:
+            canvas_multiplier = 5
+        else:
+            canvas_multiplier=1
+
+        canvas_round=canvas_var * canvas_multiplier
+
+        p = Image.new(mode="RGB", size=[canvas_var * canvas_multiplier*8, canvas_var * canvas_multiplier*12], color="white")
+        os.chdir("../Output Files/Triangle")
+        filename = "MaxSide" + "-" + str(canvas_var) + "-" + str(datetime.date.today()) + str(
+            "{:.4f}".format(time.time())) + ".jpg"
+
+        draw = Draw(p)
+
+        draw.text((canvas_round * 2, canvas_round * 5), "Circumference : " + str(self.a), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        p.save(filename)
+
+
 
     def find_all_sides_and_angles(self):
         if self.type == "e".lower() or self.type == "e".upper():
@@ -217,20 +270,26 @@ class Triangle:
         if self.type == "r".lower() or self.type == "r".upper():
             self.angB=90
 
-            if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB == 0 and self.angC == 0:
+            if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0  and self.angC == 0:
                 self.angA = degrees(atan(self.a / self.b))
                 self.angC=90-self.angA
                 self.c=(self.b**2-self.a**2)**0.5
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
-            if self.a == 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0:
-                self.angA=degrees(atan(self.c/self.a))
+            if self.a == 0 and self.b != 0 and self.c != 0 and self.angA == 0  and self.angC == 0:
+                self.angA=degrees(asin(self.b/self.c))
                 self.angC=90-self.angA
                 self.a = (self.b ** 2 - self.c ** 2) ** 0.5
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
+            if self.a != 0 and self.b == 0 and self.c != 0 and self.angA == 0 and self.angC == 0:
+                self.angA=degrees(asin(self.a/self.c))
+                self.angC=90-self.angA
+                self.b = (self.c ** 2 + self.a ** 2) ** 0.5
+                return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
-        if self.type == "":
+
+        if self.type == "sss".lower() or self.type=="sss".upper():
             # for SSS
             if self.a != 0 and self.b != 0 and self.c != 0 and self.angA == 0 and self.angB == 0 and self.angC == 0:
                 self.cosine_rule_find_angB()
@@ -238,6 +297,7 @@ class Triangle:
                 self.cosine_rule_find_angC()
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
+        if self.type == "sas".lower() or self.type == "sas".upper():
                 # for SAS
             if self.a != 0 and self.b != 0 and self.c == 0 and self.angA == 0 and self.angB != 0 and self.angC == 0:
                 self.angA=degrees(self.a*sin(self.angB)/self.b)
@@ -258,6 +318,7 @@ class Triangle:
                 self.a = (self.b * sin(self.angA) / sin(self.angB))
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
+        if self.type == "asa".lower() or self.type == "asa".upper():
                 # for ASA
             if self.a == 0 and self.b != 0 and self.c == 0 and self.angA != 0 and self.angB != 0 and self.angC == 0:
                 self.angC=180-(self.angA+self.angB)
@@ -278,7 +339,7 @@ class Triangle:
                 return self.a, self.b, self.c, self.angA, self.angB, self.angC
 
                 # for AAS
-
+        if self.type == "aas".lower() or self.type == "aas".upper():
             if self.a != 0 and self.b == 0 and self.c == 0 and self.angA != 0 and self.angB != 0 and self.angC == 0:
                 self.angC = 180 - (self.angA + self.angB)
                 self.b = (self.c * sin(self.angB) / sin(self.angC))
@@ -477,12 +538,30 @@ def take_input_triangle():
                         print("please Enter the Value for Side b :")
                         triangle.b = int(input())
 
+                        triangle.c=triangle.b
+
+                        if triangle.chk_for_inequality():
+                            pass
+                        else:
+                            print("""Please enter the Values for the sides correctly
+                                        Triangle Inequality Theorem:
+    
+                                        The theorem states that for any triangle with sides:
+    
+                                        1.a+b>c
+                                        2.a+c>b
+                                        3.b+c>a
+    
+                                        """)
+                            return True
+
                     elif comb == 2:
                         print("please Enter the Value for Side b :")
                         triangle.b = int(input())
 
                         print("please Enter the Value for ang A :")
                         triangle.angA = int(input())
+
 
                 elif var_chk.lower() == "r" or var_chk == 'r':
                     print("""Please enter combination you want to input Values for :\n
@@ -523,6 +602,8 @@ def take_input_triangle():
 
                     print("Please enter the value for Side c:\n")
                     triangle.c = int(input())
+
+
 
                 elif var_chk.lower() == "sas" or var_chk == 'sas':
                     print("""Please enter combination you want to input Values for :\n
@@ -675,16 +756,36 @@ def take_input_triangle():
 
                     triangle.check_the_input()
 
-                    print("\n Do you want to find all sides and angles print 'y' for Yes and 'n' for No :\n")
-                    var_chk = input()
-                    if var_chk.lower() == "y" or var_chk == 'y':
-                        triangle.print_all_sides_and_angles()
+                else:
+                    print("""You did not provide the Correct Values out of :
+                        
+                        1.Enter I for Isosceles
+                        2.Enter E for Equilateral
+                        3.Enter R for Right angle
+                        4.SSS(side-side-side) Enter SSS
+                        5.SAS(Side-Angle_Side) Enter SAS
+                        6.ASA(Angle-Side-Angle) Enter ASA
+                        7.AAS(Angle-Angle-Side) Enter AAS
+                    
+                        """)
+                    return True
 
-                    print("\n Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
-                    var_chk = input()
-                    if var_chk.lower() == "y" or var_chk == 'y':
-                        triangle.print_all_calculations()
-                        return False
+
+                print("\n Do you want to find all sides and angles print 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    triangle.print_all_sides_and_angles()
+
+                print("\n Do you want to find all the calculations 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    triangle.print_all_calculations()
+
+                print("\n Do you want to create an image for the triangle 'y' for Yes and 'n' for No :\n")
+                var_chk = input()
+                if var_chk.lower() == "y" or var_chk == 'y':
+                    triangle.draw_the_triangle()
+                    return False
 
 
             except ValueError as e:

@@ -48,7 +48,7 @@ class Circle:
     def draw_circle_and_all_properties(self):
 
         p = Image.new(mode="RGB", size=[self.radius*8, self.radius*5], color="white")
-        os.chdir("../Output Files/")
+        os.chdir("../Output Files/Circle")
         filename = "Rad"+"-"+str(self.radius)+"-"+str(datetime.date.today())+str("{:.4f}".format(time.time()))+ ".jpg"
 
         draw=Draw(p)
