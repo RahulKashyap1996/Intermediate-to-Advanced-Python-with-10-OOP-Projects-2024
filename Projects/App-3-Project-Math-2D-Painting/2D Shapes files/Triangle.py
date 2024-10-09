@@ -223,16 +223,111 @@ class Triangle:
 
         canvas_round=canvas_var * canvas_multiplier
 
-        p = Image.new(mode="RGB", size=[canvas_var * canvas_multiplier*8, canvas_var * canvas_multiplier*12], color="white")
+        p = Image.new(mode="RGB", size=[canvas_round*12, canvas_round*8], color="white")
         os.chdir("../Output Files/Triangle")
         filename = "MaxSide" + "-" + str(canvas_var) + "-" + str(datetime.date.today()) + str(
             "{:.4f}".format(time.time())) + ".jpg"
 
         draw = Draw(p)
 
-        draw.text((canvas_round * 2, canvas_round * 5), "Circumference : " + str(self.a), fill="Black",
+        draw.text((canvas_round * 2, canvas_round * 5), "a : " + str(self.a), fill="Black",
                   font_size=canvas_round * 0.2)
 
+        draw.text((canvas_round * 2, canvas_round * 5.2), "b : " + str(self.b), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 5.4), "c : " + str(self.c), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 5.6), "Ang A : " + str(self.angA), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 5.8), "Ang B : " + str(self.angB), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6), "Ang C : " + str(self.angC), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+
+
+        draw.text((canvas_round * 7, canvas_round * 5), "Triangle type(side) : " + str(self.find_type_of_triangle_on_sides()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 5.2), "Triangle type(angle) : " + str(self.find_type_of_triangle_on_angle()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 5.4), "Perimeter : " + str(self.perimeter()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 5.6), "Area : " + str(self.area()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 5.8), "Circum Radius : " + str(self.circum_radius()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 6), "InRadius : " + str(self.in_radius()), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+
+        draw.text((canvas_round * 7, canvas_round * 6.2), "altitude at a : " + str(self.altitudes()[0]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 6.4), "altitude at b : " + str(self.altitudes()[1]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+
+        draw.text((canvas_round * 7, canvas_round * 6.6), "altitude at c : " + str(self.altitudes()[2]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 6.8), "median at a : " + str(self.median()[0]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 7), "median at b : " + str(self.median()[1]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 7.2), "median at c : " + str(self.median()[2]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.2), "angle bisector at a : " + str(self.angle_bisector()[0]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.4), "angle bisector at b : " + str(self.angle_bisector()[1]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.6), "angle bisector at c : " + str(self.angle_bisector()[2]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.polygon([(canvas_round * 7, canvas_round * 4),
+                      (canvas_round * 7 + self.a * canvas_multiplier * 2, canvas_round * 4), (
+                      (canvas_round * 7 + self.a * canvas_multiplier),
+                      (canvas_round * 4 - 2 * canvas_multiplier * self.altitudes()[0]))], fill="pink", outline="black",
+                     width=canvas_round // 50)
+
+        draw.polygon([(canvas_round * 2 , canvas_round * 4), (canvas_round * 2+self.a*canvas_multiplier*2 , canvas_round * 4),((canvas_round * 2+self.a*canvas_multiplier) , (canvas_round * 4-2*canvas_multiplier*self.altitudes()[0]))],fill="pink",outline="black",width=canvas_round // 50)
+
+        draw.text((canvas_round * 7 + self.a * canvas_multiplier , canvas_round * 4.2), " a ", fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 6.8), "median at a : " + str(self.median()[0]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 7), "median at b : " + str(self.median()[1]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 7, canvas_round * 7.2), "median at c : " + str(self.median()[2]), fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.2), "angle bisector at a : " + str(self.angle_bisector()[0]),
+                  fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.4), "angle bisector at b : " + str(self.angle_bisector()[1]),
+                  fill="Black",
+                  font_size=canvas_round * 0.2)
+
+        draw.text((canvas_round * 2, canvas_round * 6.6), "angle bisector at c : " + str(self.angle_bisector()[2]),
+                  fill="Black",
+                  font_size=canvas_round * 0.2)
         p.save(filename)
 
 
