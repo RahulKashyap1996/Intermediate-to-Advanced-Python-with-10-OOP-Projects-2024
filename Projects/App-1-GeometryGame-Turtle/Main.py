@@ -96,7 +96,9 @@ print(f"The coordinates of the rectangle are Point 1 is {rectangle.point1.x}\
 
 # Get user input for a guess and validate input
 try:
+
     user_guess = Point(float(input("Guess X: ")), float(input("Guess Y: ")))
+
 except ValueError:
     print("Invalid input! Please enter a valid number.")
 

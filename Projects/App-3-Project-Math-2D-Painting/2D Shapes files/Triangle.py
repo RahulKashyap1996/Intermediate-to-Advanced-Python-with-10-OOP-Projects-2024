@@ -117,7 +117,7 @@ class Triangle:
         print(f"The median at b will be {med_b}")
         print(f"The median at c will be {med_c}")
 
-        bis_a, bis_b, bis_c=self.angle_bisector()
+        bis_a, bis_b, bis_c =self.angle_bisector()
         print(f"The angle bisector at a will be {bis_a}")
         print(f"The angle bisector at b will be {bis_b}")
         print(f"The angle bisector at c will be {bis_c}")
